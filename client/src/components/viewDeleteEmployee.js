@@ -4,13 +4,43 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
+import gql from "graphql-tag";
+import { graphql } from "react-apollo";
+
+const EmployeeQuery = gql`
+{
+  employees {
+    id
+    first
+    last
+    email
+    phone
+    salary
+  }
+}
+`;
+
+const RemoveMutation = gql`
+mutation($id: ID!) {
+    removeEmployee(id: $id)
+  }
+`;
 
 
+class ViewDeleteEmployee extends Component {
 
-class ViewEmployee extends Component {
-
-    _deleteEmployee = id => {
-        this.props.viewTable();
+    _removeEmployee = async e => {
+        await this.props.removeEmployee({
+            variables: {
+                id: this.props.id
+            },
+            update: store => {
+                const data = store.readQuery({ query: EmployeeQuery });
+                data.employees = data.employees.filter(x => x.id === this.props.id);
+                store.writeQuery({ query: EmployeeQuery, data });
+            }
+        });
+        window.location.reload(false);
     }
 
     render() {
@@ -40,30 +70,30 @@ class ViewEmployee extends Component {
                     </div>
                     <div className='data'>
                         <b>Phone</b>
-                        <div>{phone}</div>
+                        <div>{`(${phone[0]}${phone[1]}${phone[2]}) ${phone[3]}${phone[4]}${phone[5]}-${phone[6]}${phone[7]}${phone[8]}${phone[9]}`}</div>
                     </div>
                     <div className='data'>
                         <b>Salary</b>
-                        <div>{salary}</div>
+                        <div>{'$' + salary}</div>
                     </div>
                 </Paper>
                 <button className='btn btn-primary' onClick={viewTable}>Back</button>
 
-                <div class="modal fade" id="deletePermanent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="ModalLabel"><b>Warning!</b></h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div className="modal fade" id="deletePermanent" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="ModalLabel"><b>Warning!</b></h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body bg-danger">
+                            <div className="modal-body bg-danger">
                                 Are you sure you want to delete this employee record permanently?
       </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal" onClick={this._deleteEmployee}><DeleteIcon /></button>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={e => this._removeEmployee(e)}><DeleteIcon /></button>
                             </div>
                         </div>
                     </div>
@@ -73,4 +103,4 @@ class ViewEmployee extends Component {
     }
 }
 
-export default (ViewEmployee);
+export default graphql(RemoveMutation, { name: 'removeEmployee' })(ViewDeleteEmployee);

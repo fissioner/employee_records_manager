@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import EmployeeTable from './components/employeeTable';
-import ViewEmployee from './components/viewEmployee';
+import ViewDeleteEmployee from './components/viewDeleteEmployee';
 import AddEditEmployee from './components/addEditEmployee';
 
 
@@ -63,12 +63,17 @@ _updateSalary = e => {
   this.setState({ salary: e.target.value })
 }
 
+_updateState = () => {
+  this.setState({ state: this.state })
+}
+
   render() {
 
     return (
       <div>
         {this.state.isView?
-        <ViewEmployee
+        <ViewDeleteEmployee
+        updateState={this._updateState}
         editEmployee={this._editEmployee}
         viewTable={this._viewTable}
         id={this.state.id}
