@@ -1,0 +1,31 @@
+
+.item {
+    cursor: pointer;
+}
+.item:nth-of-type(odd) {
+    background-color: #f2f2f2
+}
+.item:hover {
+    background-color: black;
+    color: white;
+}
+.component {
+    margin: auto;
+    max-width: 600px;
+}
+.title {
+    margin: 40px 0px 40px 0px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid gray;
+}
+.data {
+    margin-bottom: 20px;
+}
+.record {
+    padding: 40px;
+    margin-bottom: 20px;
+    border-top: 1px solid gray;
+}
+#backBtn {
+    margin-right: 10px;
+}

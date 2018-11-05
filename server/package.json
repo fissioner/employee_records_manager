@@ -1,0 +1,16 @@
+{
+  "name": "employee_list",
+  "version": "1.0.0",
+  "description": "Eployee List: CRUD example using MERN stack.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Derek Thornton",
+  "license": "ISC",
+  "dependencies": {
+    "graphql-yoga": "^1.16.7",
+    "mongoose": "^5.3.9"
+  }
+}
