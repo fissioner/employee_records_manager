@@ -1,6 +1,17 @@
+require('dotenv').config()
+const express = require('express');
+const app = express();
+const path = require('path');
 const { GraphQLServer } = require('graphql-yoga')
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/employees', { useNewUrlParser: true });
+
+app.use('/', express.static(path.join(__dirname, './../client/build')));
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, './../client/build/index.html'));
+});
+const port = process.env.PORT_NUM || 3000;
+app.listen(port, () => console.log(`Listening on port ${port}...`));
 
 const Employee = mongoose.model('Employee', {
     empID: Number,

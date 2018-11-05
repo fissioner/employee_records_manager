@@ -1,5 +1,3 @@
-# employee_records_manager
-
-Employee Records Manager
+# Employee Records Manager
 
 A CRUD emample using a MERN stack.
