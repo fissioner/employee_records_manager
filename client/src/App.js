@@ -56,7 +56,7 @@ _updateEmail = e => {
 }
 
 _updatePhone = e => {
-  this.setState({ phone: e.target.value })
+  this.setState({ phone: parseInt(e.target.value) })
 }
 
 _updateSalary = e => {

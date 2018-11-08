@@ -20,6 +20,12 @@ const EmployeeQuery = gql`
 `;
 
 class EmployeeTable extends Component {
+
+    _salaryFormat = (num) => {
+        num = String(num);
+        return `$${num.substring(0, num.length-3)},${num.substring((num.length - 3), num.length)}`;
+    }
+
     render() {
         let count = 1;
         const { data: { loading, employees }, viewEmployee, createEmployee } = this.props;
@@ -49,8 +55,12 @@ class EmployeeTable extends Component {
                                     <th scope="row">{count++}</th>
                                     <td>{employee.first} {employee.last}</td>
                                     <td>{employee.email}</td>
-                                    <td>{`(${employee.phone[0]}${employee.phone[1]}${employee.phone[2]}) ${employee.phone[3]}${employee.phone[4]}${employee.phone[5]}-${employee.phone[6]}${employee.phone[7]}${employee.phone[8]}${employee.phone[9]}`}</td>
-                                    <td>{'$' + employee.salary}</td>
+                                    <td>{employee.phone.length>9 ? `(${employee.phone.substring(0,3)}) ${employee.phone.substring(3, 6)}-${employee.phone.substring(6)}`:employee.phone}</td>
+                                    <td>
+                                    {employee.salary > 999 ?
+                                        this._salaryFormat(employee.salary) :
+                                        `$${employee.salary}`}
+                                        </td>
                                 </tr>))}
                         </tbody>
                     </table>

@@ -37,7 +37,8 @@ mutation($id: ID!, $first: String!, $last: String!, $email: String!, $phone: Str
 
 class AddEditEmployee extends Component {
 
-    createEmployee = async () => {
+    async createEmployee(e) {
+        e.preventDefault();
         await this.props.createEmployee({
             variables: {
                 first: this.props.first,
@@ -54,7 +55,9 @@ class AddEditEmployee extends Component {
         });
         this.props.viewTable();
     }
-    updateEmployee = async e => {
+
+    async updateEmployee(e) {
+        e.preventDefault();
         await this.props.updateEmployee({
             variables: {
                 id: this.props.id,
@@ -90,8 +93,10 @@ class AddEditEmployee extends Component {
                     {isCreate ?
                         'Create Employee Record' :
                         'Edit Employee Record'}
-                </h2>
-                <form>
+                </h2><form onSubmit={(e) => (
+                    isCreate ?
+                this.createEmployee(e) :
+                this.updateEmployee(e))}>
                     <Paper elevation={2} className='record'>
 
                         {isCreate ? '' : <div className='data'>
@@ -112,18 +117,15 @@ class AddEditEmployee extends Component {
                         </div>
                         <div className='data'>
                             <b>Phone</b>
-                            <input type='number' className='form-control' onChange={updatePhone} value={phone} placeholder='Enter 10 digits' required />
+                            <input type='text' size='10' maxLength='10' minLength='10' className='form-control' onChange={updatePhone} value={phone} placeholder='Enter 10 digits' required />
                         </div>
                         <div className='data'>
                             <b>Salary</b>
-                            <input type='number' className='form-control' onChange={updateSalary} value={salary} placeholder='Numbers only, e.g. 87000' required />
+                            <input type='number' max='1000000' className='form-control' onChange={updateSalary} value={salary} placeholder='Numbers only, e.g. 87000' required />
                         </div>
                     </Paper>
-                    <button id='backBtn' className='btn btn-primary' onClick={isCreate ? viewTable : viewEmployee}>Back</button>
-                    <button className='btn btn-primary'
-                        onClick={isCreate ?
-                            (this.createEmployee) :
-                            (e => this.updateEmployee(e))}>
+                    <button id='backBtn' type='button' className='btn btn-primary' onClick={isCreate ? viewTable : viewEmployee}>Back</button>
+                    <button type='submit' className='btn btn-primary'>
                         {isCreate ? 'Create' : 'Save'}
                     </button></form>
             </div>

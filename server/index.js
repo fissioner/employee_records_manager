@@ -4,13 +4,13 @@ const app = express();
 const path = require('path');
 const { GraphQLServer } = require('graphql-yoga')
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/employees', { useNewUrlParser: true });
+mongoose.connect('mongodb://fissioner:qibvod-9rizmu-pyJtef@ds255253.mlab.com:55253/emp-test', { useNewUrlParser: true });
 
 app.use('/', express.static(path.join(__dirname, './../client/build')));
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, './../client/build/index.html'));
 });
-const port = process.env.PORT_NUM || 3000;
+const port = process.env.PORT_NUM || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
 const Employee = mongoose.model('Employee', {
