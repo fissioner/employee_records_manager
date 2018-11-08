@@ -7,7 +7,7 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 
 const client = new ApolloClient({
-  uri: "https://thawing-springs-45393.herokuapp.com"
+  uri: "http://localhost:4000"
 });
 
 ReactDOM.render(
