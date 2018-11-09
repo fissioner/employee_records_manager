@@ -42,6 +42,10 @@ class ViewDeleteEmployee extends Component {
         });
         window.location.reload(false);
     }
+    _salaryFormat = (num) => {
+        num = String(num);
+        return `$${num.substring(0, num.length - 3)},${num.substring((num.length - 3), num.length)}`;
+    }
 
     render() {
         const { id, first, last, email, phone, salary, viewTable, editEmployee } = this.props;
@@ -70,11 +74,18 @@ class ViewDeleteEmployee extends Component {
                     </div>
                     <div className='data'>
                         <b>Phone</b>
-                        <div>{phone.length>9?`(${phone[0]}${phone[1]}${phone[2]}) ${phone[3]}${phone[4]}${phone[5]}-${phone[6]}${phone[7]}${phone[8]}${phone[9]}`:phone}</div>
+                        <div>{phone.length > 9 ?
+                            `(${phone.substring(0, 3)}) ${phone.substring(3, 6)}-${phone.substring(6)}` :
+                            phone}
+                        </div>
                     </div>
                     <div className='data'>
                         <b>Salary</b>
-                        <div>{'$' + salary}</div>
+                        <div>
+                            {salary > 999 ?
+                                this._salaryFormat(salary) :
+                                `$${salary}`}
+                        </div>
                     </div>
                 </Paper>
                 <button className='btn btn-primary' onClick={viewTable}>Back</button>
