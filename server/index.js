@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 const { GraphQLServer } = require('graphql-yoga')
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://fissioner:qibvod-9rizmu-pyJtef@ds255253.mlab.com:55253/emp-test', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/employees', { useNewUrlParser: true });
 
 app.use('/', express.static(path.join(__dirname, './../client/build')));
 app.get('/', function(req, res) {
