@@ -1,3 +1,3 @@
 # Employee Records Manager
 
-A CRUD emample using a MERN stack.
+A CRUD emample using MERN stack.
