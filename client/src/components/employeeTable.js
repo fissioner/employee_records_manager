@@ -4,6 +4,8 @@ import { graphql } from "react-apollo";
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 
 const EmployeeQuery = gql`
@@ -30,7 +32,12 @@ class EmployeeTable extends Component {
         let count = 1;
         const { data: { loading, employees }, viewEmployee, createEmployee } = this.props;
         if (loading) {
-            return null;
+            return (
+            <div id='loading'>
+            <h3 >Loading</h3>
+            <p>Please Wait</p>
+                <CircularProgress />
+            </div>);
         }
 
         return (

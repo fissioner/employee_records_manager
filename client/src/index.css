@@ -1,4 +1,3 @@
-
 .item {
     cursor: pointer;
 }
@@ -28,4 +27,12 @@
 }
 #backBtn {
     margin-right: 10px;
+}
+#loading {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
