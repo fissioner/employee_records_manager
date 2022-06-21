@@ -44,7 +44,7 @@ class AddEditEmployee extends Component {
                 first: this.props.first,
                 last: this.props.last,
                 email: this.props.email,
-                phone: this.props.phone,
+                phone: this.props.phone.toString(),
                 salary: parseInt(this.props.salary)
             },
             update: (store, { data: { createEmployee } }) => {
@@ -64,7 +64,7 @@ class AddEditEmployee extends Component {
                 first: this.props.first,
                 last: this.props.last,
                 email: this.props.email,
-                phone: this.props.phone,
+                phone: this.props.phone.toString(),
                 salary: parseInt(this.props.salary)
             },
             update: store => {
